@@ -6,4 +6,4 @@ class PontoTuristicoSerializer(ModelSerializer):
     # criar um serializer simples, leve
     class Meta:
         model = PontoTuristico
-        fields = ('id', 'nome', 'descricao')
+        fields = ('id', 'nome', 'descricao','aprovado')
