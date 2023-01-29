@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ModelViewSet
 from core.models import PontoTuristico
 from .serializers import PontoTuristicoSerializer
@@ -9,9 +10,24 @@ class PontoTuristicoViewSet(ModelViewSet):
 
     # queryset = PontoTuristico.objects.filter(aprovado=True)
     serializer_class = PontoTuristicoSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['nome', 'descricao','enderecos__linha1']
 
+    #filter pelo campo aprovado
+    # def get_queryset(self):
+    #     return PontoTuristico.objects.filter(aprovado=True)
+
+     #filter pelos campos passados na url
     def get_queryset(self):
-        return PontoTuristico.objects.filter(aprovado=True)
+        id = self.request.query_params.get('id', None)
+        nome = self.request.query_params.get('nome', None)
+        descricao = self.request.query_params.get('descricao', None)
+        queryset = PontoTuristico.objects.all()
+        if id and nome and descricao:
+            queryset = PontoTuristico.objects.filter(pk=id)
+            queryset = queryset.filter(nome__iexact=nome)
+            queryset =queryset.filter(descricao__iexact=descricao)
+        return queryset
 
     # def list(self, request, *args, **kwargs):
     #     return Response({'teste':123}) 
