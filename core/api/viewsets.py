@@ -13,6 +13,8 @@ class PontoTuristicoViewSet(ModelViewSet):
     filter_backends = [SearchFilter]
     search_fields = ['nome', 'descricao','enderecos__linha1']
 
+    # lookup_field = 'nome' , alterando o lookup_field padrão de enpoint 
+
     #filter pelo campo aprovado
     # def get_queryset(self):
     #     return PontoTuristico.objects.filter(aprovado=True)
