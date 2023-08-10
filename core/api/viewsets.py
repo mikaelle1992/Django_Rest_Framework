@@ -15,8 +15,8 @@ class PontoTuristicoViewSet(ModelViewSet):
     # queryset = PontoTuristico.objects.filter(aprovado=True)
     serializer_class = PontoTuristicoSerializer
     filter_backends = [SearchFilter]
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication]
+    #permission_classes = [IsAuthenticated]
+    #authentication_classes = [TokenAuthentication]
     search_fields = ['nome', 'descricao','enderecos__linha1']
 
     # lookup_field = 'nome' , alterando o lookup_field padrão de enpoint 
